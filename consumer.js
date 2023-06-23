@@ -1,15 +1,17 @@
 const { Kafka } = require('kafkajs');
+const config = require('./config.json');
 
 // The topic to use when sending a message.
-const topic = process.argv[2] || 'test-topic';
+const topic = process.argv[3] || config.defaultTopic;
 
+// Create a new KafkaJS instance.
 const kafka = new Kafka({
-	clientId: 'my-app',
-	brokers: ['localhost:29092']
+	clientId: config.clientId,
+	brokers: [`${config.brokerIP}:${config.brokerPort}`]
 });
 
 const getMessage = async function () {
-    const consumer = kafka.consumer({ groupId: 'test-group' });
+    const consumer = kafka.consumer({ groupId: config.groupId });
 
     await consumer.connect();
     await consumer.subscribe({ topic: topic, fromBeginning: true });

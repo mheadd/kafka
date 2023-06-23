@@ -1,14 +1,16 @@
 const { Kafka } = require('kafkajs');
+const config = require('./config.json');
 
 // The message to send.
-const message = process.argv[2] ||  'Hello KafkaJS user!';
+const message = process.argv[2] || config.defaultMessage;
 
 // The topic to use when sending a message.
-const topic = process.argv[3] || 'test-topic';
+const topic = process.argv[3] || config.defaultTopic;
 
+// Create a new KafkaJS instance.
 const kafka = new Kafka({
-	clientId: 'my-app',
-	brokers: ['localhost:29092']
+	clientId: config.clientId,
+	brokers: [`${config.brokerIP}:${config.brokerPort}`]
 });
 
 // Producer
@@ -24,4 +26,5 @@ const sendMessage = async function () {
 	await producer.disconnect();
 }
 
+// Send the message.
 sendMessage();
