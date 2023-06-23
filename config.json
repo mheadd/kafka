@@ -1,8 +1,8 @@
 {
     "brokerIP": "localhost",
     "brokerPort": 29092,
-    "clientId":"my-app",
-    "groupId":"test-group",
-    "defaultTopic":"test-topic",
+    "clientId": "my-app",
+    "groupId": "test-group",
+    "defaultTopic": "test-topic",
     "defaultMessage": "'Hello KafkaJS user!"
 }
